@@ -67,7 +67,8 @@
 #
 # [*maxmemory_policy*]
 #   How Redis decides what is removed from memory when maxmemory is reached
-#   volatile-lru, allkeys-lru, volatile-random, allkeys-random, voltaile-ttl, noevection are valid
+#   volatile-lru, allkeys-lru, volatile-random, allkeys-random, voltaile-ttl,
+#   noevection are valid
 #   Default: volatile-lru
 #
 # [*appendonly*]
@@ -101,54 +102,58 @@
 #
 # TODO - backups
 class redis (
-  $version                      = 'latest',
-  $port                         = '6379',
-  $listen                       = '127.0.0.1',
-  $unixsocket                   = '',
-  $redis_loglevel               = 'notice',
-  $databases                    = 16,
-  $save                         = [ '900 1', '300 10', '60 10000'],
-  $masterip                     = '',
-  $masterport                   = '6379',
-  $masterauth                   = '',
-  $requirepass                  = '',
-  $maxclients                   = 128,
-  $maxmemory                    = '',
-  $maxmemory_policy             = 'volatile-lru',
-  $appendonly                   = 'no',
-  $appendfsync                  = 'everysec',
-  $auto_aof_rewrite_percentage  = '100',
-  $auto_aof_rewrite_min_size    = '64mb',
-  $slowlog_log_slower_than      = 10000,
-  $slowlog_max_len              = 1024,
-  $packages = $redis::params::packages,
-  $manage_repo = false,
-) inherits redis::params {
-
-  class { 'redis::install': version => $version, manage_repo => $manage_repo } ->
+  $version          = 'latest',
+  $port             = '6379',
+  $listen           = '127.0.0.1',
+  $unixsocket       = '',
+  $redis_loglevel   = 'notice',
+  $databases        = 16,
+  $save             = [
+    '900 1',
+    '300 10',
+    '60 10000'],
+  $masterip         = '',
+  $masterport       = '6379',
+  $masterauth       = '',
+  $requirepass      = '',
+  $maxclients       = 128,
+  $maxmemory        = '',
+  $maxmemory_policy = 'volatile-lru',
+  $appendonly       = 'no',
+  $appendfsync      = 'everysec',
+  $auto_aof_rewrite_percentage = '100',
+  $auto_aof_rewrite_min_size   = '64mb',
+  $slowlog_log_slower_than     = 10000,
+  $slowlog_max_len  = 1024,
+  $packages         = $redis::params::packages,
+  $manage_repo      = false,) inherits redis::params {
+  class { 'redis::install':
+    packages    => $packages,
+    version     => $version,
+    manage_repo => $manage_repo
+  } ->
   class { 'redis::config':
-    port                        => $port,
-    listen                      => $listen,
-    unixsocket                  => '',
-    redis_loglevel              => $redis_loglevel,
-    databases                   => $databases,
-    save                        => $save,
-    masterip                    => $masterip,
-    masterport                  => $masterport,
-    masterauth                  => $masterauth,
-    requirepass                 => $requirepass,
-    maxclients                  => $maxclients,
-    maxmemory                   => $maxmemory,
-    maxmemory_policy            => $maxmemory_policy,
-    appendonly                  => $appendonly,
-    appendfsync                 => $appendfsync,
+    port             => $port,
+    listen           => $listen,
+    unixsocket       => '',
+    redis_loglevel   => $redis_loglevel,
+    databases        => $databases,
+    save             => $save,
+    masterip         => $masterip,
+    masterport       => $masterport,
+    masterauth       => $masterauth,
+    requirepass      => $requirepass,
+    maxclients       => $maxclients,
+    maxmemory        => $maxmemory,
+    maxmemory_policy => $maxmemory_policy,
+    appendonly       => $appendonly,
+    appendfsync      => $appendfsync,
     auto_aof_rewrite_percentage => $auto_aof_rewrite_percentage,
     auto_aof_rewrite_min_size   => $auto_aof_rewrite_min_size,
     slowlog_log_slower_than     => $slowlog_log_slower_than,
-    slowlog_max_len             => $slowlog_max_len,
+    slowlog_max_len  => $slowlog_max_len,
   } ~>
   class { 'redis::service': packages => $packages } ->
-
   Class['redis']
 
 }
