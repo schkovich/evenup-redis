@@ -121,9 +121,11 @@ class redis (
   $auto_aof_rewrite_min_size    = '64mb',
   $slowlog_log_slower_than      = 10000,
   $slowlog_max_len              = 1024,
-) {
+  $packages = $redis::params::packages,
+  $manage_repo = false,
+) inherits redis::params {
 
-  class { 'redis::install': version => $version } ->
+  class { 'redis::install': version => $version, manage_repo => $manage_repo } ->
   class { 'redis::config':
     port                        => $port,
     listen                      => $listen,
@@ -145,7 +147,7 @@ class redis (
     slowlog_log_slower_than     => $slowlog_log_slower_than,
     slowlog_max_len             => $slowlog_max_len,
   } ~>
-  class { 'redis::service': } ->
+  class { 'redis::service': packages => $packages } ->
 
   Class['redis']
 

@@ -5,21 +5,20 @@
 #
 # === Parameters
 #
-# See the init.pp for parameter information.  This class should not be direclty called.
+# See the init.pp for parameter information.  This class should not be directly called.
 #
 #
 # === Authors
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-class redis::service (
-) {
+class redis::service  ($packages) {
 
   service {
-    'redis':
+    $packages:
       ensure  => running,
       enable  => true,
-      require => Package['redis'],
+      require => Class['redis::config'],
   }
 
 }

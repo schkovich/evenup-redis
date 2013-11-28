@@ -5,17 +5,35 @@
 #
 # === Parameters
 #
-# See the init.pp for parameter information.  This class should not be direclty called.
+# See the init.pp for parameter information.  This class should not be directly
+# called.
 #
 #
 # === Authors
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-class redis::install ( $version = 'latest' ) {
+class redis::install ($packages, $version = 'latest', $manage_repo = false) {
+  validate_string($packages)
+  validate_string($version)
+  validate_bool($manage_repo)
 
-  package {
-    'redis':
-      ensure => $version,
+  if $::operatingsystem == 'ubuntu' {
+    if $manage_repo {
+      # Only add apt source if we're managing the repo
+      include 'apt'
+
+      # Only use PPA when necessary.
+      apt::ppa { 'ppa:chris-lea/redis-server': 
+        before => Anchor['redis::repo'], 
+      }
+    }
+  }
+
+  # anchor resource provides a consistent dependency for prerequisites.
+  anchor { 'redis::repo': }
+
+  package { $packages: ensure => $version, 
+    require => Anchor['redis::repo']
   }
 }
