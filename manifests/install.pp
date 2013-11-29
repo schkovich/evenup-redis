@@ -24,8 +24,8 @@ class redis::install ($packages, $version = 'latest', $manage_repo = false) {
       include 'apt'
 
       # Only use PPA when necessary.
-      apt::ppa { 'ppa:chris-lea/redis-server': 
-        before => Anchor['redis::repo'], 
+      apt::ppa { 'ppa:chris-lea/redis-server':
+        before => Anchor['redis::repo'],
       }
     }
   }
@@ -33,7 +33,7 @@ class redis::install ($packages, $version = 'latest', $manage_repo = false) {
   # anchor resource provides a consistent dependency for prerequisites.
   anchor { 'redis::repo': }
 
-  package { $packages: ensure => $version, 
+  package { $packages: ensure => $version,
     require => Anchor['redis::repo']
   }
 }

@@ -33,7 +33,7 @@ class redis::config (
   $slowlog_log_slower_than,
   $slowlog_max_len
 ) {
-
+  
   file { '/etc/redis.conf':
     ensure  => file,
     owner   => 'redis',

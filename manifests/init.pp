@@ -85,6 +85,7 @@
 #   Default: 100
 #
 # [*auto_aof_rewrite_min_size*]
+# [*auto_aof_rewrite_min_size*]
 #   Ignore append files less than this size
 #   Default: 64mb
 #
