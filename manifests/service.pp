@@ -12,13 +12,6 @@
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-class redis::service  ($packages) {
-
-  service {
-    $packages:
-      ensure  => running,
-      enable  => true,
-      require => Class['redis::config'],
-  }
-
+class redis::service {
+  realize(Sredis[start])
 }

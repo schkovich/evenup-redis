@@ -127,6 +127,17 @@ class redis (
   $slowlog_max_len  = 1024,
   $packages         = $redis::params::packages,
   $manage_repo      = false) inherits redis::params {
+
+  define sredis($ensure) {
+    service {"$name":
+      name   => $packages,
+      ensure => $ensure,
+      enable => true
+    }
+  }
+  @sredis{'stop': ensure => "stopped"}
+  @sredis{'start': ensure => "running"}
+
   class { 'redis::install':
     packages    => $packages,
     version     => $version,
