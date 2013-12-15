@@ -36,4 +36,13 @@ class redis::install ($packages, $version = 'latest', $manage_repo = false) {
   package { $packages: ensure => $version,
     require => Anchor['redis::repo']
   }
+
+  exec {"update-rc.d -f redis-server remove":
+    path => "/usr/bin:/usr/sbin:/bin",
+    require => Package[$packages],
+  }
+  ->
+  file {"/etc/init/redis-server.conf":
+    source => "puppet:///modules/redis/redis-server.conf",
+  }
 }
