@@ -164,7 +164,7 @@ class redis (
     slowlog_log_slower_than     => $slowlog_log_slower_than,
     slowlog_max_len  => $slowlog_max_len,
   } ~>
-  class { 'redis::service': packages => $packages } ->
+  class { 'redis::service':} ->
   Class['redis']
 
 }
