@@ -1,2 +1,4 @@
 spec/fixtures/*
 pkg/*
+.idea/
+atlassian-ide-plugin.xml

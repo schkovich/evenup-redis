@@ -127,7 +127,7 @@ class redis (
   $slowlog_log_slower_than     = 10000,
   $slowlog_max_len  = 1024,
   $packages         = $redis::params::packages,
-  $manage_repo      = false,) inherits redis::params {
+  $manage_repo      = false) inherits redis::params {
   class { 'redis::install':
     packages    => $packages,
     version     => $version,
