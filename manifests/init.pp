@@ -85,7 +85,6 @@
 #   Default: 100
 #
 # [*auto_aof_rewrite_min_size*]
-# [*auto_aof_rewrite_min_size*]
 #   Ignore append files less than this size
 #   Default: 64mb
 #
@@ -134,21 +133,21 @@ class redis (
     manage_repo => $manage_repo
   } ->
   class { 'redis::config':
-    port             => $port,
-    listen           => $listen,
-    unixsocket       => '',
-    redis_loglevel   => $redis_loglevel,
-    databases        => $databases,
-    save             => $save,
-    masterip         => $masterip,
-    masterport       => $masterport,
-    masterauth       => $masterauth,
-    requirepass      => $requirepass,
-    maxclients       => $maxclients,
-    maxmemory        => $maxmemory,
-    maxmemory_policy => $maxmemory_policy,
-    appendonly       => $appendonly,
-    appendfsync      => $appendfsync,
+    port                        => $port,
+    listen                      => $listen,
+    unixsocket                  => $unixsocket,
+    redis_loglevel              => $redis_loglevel,
+    databases                   => $databases,
+    save                        => $save,
+    masterip                    => $masterip,
+    masterport                  => $masterport,
+    masterauth                  => $masterauth,
+    requirepass                 => $requirepass,
+    maxclients                  => $maxclients,
+    maxmemory                   => $maxmemory,
+    maxmemory_policy            => $maxmemory_policy,
+    appendonly                  => $appendonly,
+    appendfsync                 => $appendfsync,
     auto_aof_rewrite_percentage => $auto_aof_rewrite_percentage,
     auto_aof_rewrite_min_size   => $auto_aof_rewrite_min_size,
     slowlog_log_slower_than     => $slowlog_log_slower_than,
