@@ -128,8 +128,8 @@ class redis (
   $packages         = $redis::params::packages,
   $manage_repo      = false) inherits redis::params {
 
-  define sredis($alias = $title, $ensure) {
-    service {"$alias":
+  define sredis($service-alias = $title, $ensure) {
+    service {"${service-alias}":
       name   => $packages,
       ensure => $ensure,
       enable => true
