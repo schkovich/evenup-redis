@@ -129,7 +129,7 @@ class redis (
   $manage_repo      = false) inherits redis::params {
 
   define sredis($ensure) {
-    service {"$name":
+    service {"$title":
       name   => $packages,
       ensure => $ensure,
       enable => true
