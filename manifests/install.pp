@@ -37,9 +37,15 @@ class redis::install ($packages, $version = 'latest', $manage_repo = false) {
     require => Anchor['redis::repo']
   }
 
+  service {
+    $packages:
+    ensure  => stopped,
+    require => Package[$packages],
+  }
+
   exec {"update-rc.d -f redis-server remove":
     path => "/usr/bin:/usr/sbin:/bin",
-    require => Package[$packages],
+    require => Service[$packages],
   }
   ->
   file {"/etc/init/redis-server.conf":
