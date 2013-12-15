@@ -13,5 +13,5 @@
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
 class redis::service {
-  realize(Sredis[start])
+  realize(Sredis['redis'])
 }

@@ -128,16 +128,15 @@ class redis (
   $packages         = $redis::params::packages,
   $manage_repo      = false) inherits redis::params {
 
-  define sredis($servicealias = $name, $ensure) {
-    notify{"The value of service alias is: ${servicealias}": }
-    service {"${servicealias}":
-      name   => $packages,
+  define sredis($ensure) {
+    notify{"The value of service alias is: ${name}": }
+    service {"${name}":
       ensure => $ensure,
       enable => true
     }
   }
-  @sredis{'stop': ensure => "stopped"}
-  @sredis{'start': ensure => "running"}
+  @sredis{$packages: ensure => "stopped"}
+  @sredis{'redis': ensure => "running"}
 
   class { 'redis::install':
     packages    => $packages,
@@ -165,7 +164,7 @@ class redis (
     slowlog_log_slower_than     => $slowlog_log_slower_than,
     slowlog_max_len  => $slowlog_max_len,
   } ~>
-  class { 'redis::service':} ->
+  class { 'redis::service': } ->
   Class['redis']
 
 }
