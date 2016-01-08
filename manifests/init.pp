@@ -105,19 +105,19 @@ class redis (
   $version          = 'latest',
   $port             = '6379',
   $listen           = '127.0.0.1',
-  $unixsocket       = '',
+  $unixsocket       = undef,
   $redis_loglevel   = 'notice',
   $databases        = 16,
   $save             = [
     '900 1',
     '300 10',
     '60 10000'],
-  $masterip         = '',
+  $masterip         = undef,
   $masterport       = '6379',
-  $masterauth       = '',
-  $requirepass      = '',
+  $masterauth       = undef,
+  $requirepass      = undef,
   $maxclients       = 128,
-  $maxmemory        = '',
+  $maxmemory        = undef,
   $maxmemory_policy = 'volatile-lru',
   $appendonly       = 'no',
   $appendfsync      = 'everysec',
@@ -129,7 +129,6 @@ class redis (
   $manage_repo      = false) inherits redis::params {
 
   define sredis($ensure) {
-    notify{"The value of service alias is: ${name}": }
     service {"${name}":
       ensure => $ensure,
       enable => true

@@ -1,4 +1,10 @@
-spec/fixtures/*
-pkg/*
-.idea/
-atlassian-ide-plugin.xml
+.*.sw?
+pkg/
+Gemfile.lock
+.vendor/
+vendor/
+spec/fixtures/
+.vagrant/
+.bundle/
+coverage/
+log/
